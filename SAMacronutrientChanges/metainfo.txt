@@ -1,0 +1,13 @@
+Name of QuantLet : 'SAMacronutrientChanges'
+
+Published in : 'Bachelor Thesis "Nutrition Changes in South Korea"'
+
+Description : 'Computes t-test to compare kcal intake by macronutrients from KNHANES nutrition survey of 1998 and 2015'
+
+Keywords : 'South Korea, nutrition survey, KNHANES, t-test, nutrition, test statistics, descriptive statistics'
+
+Author : 'Darius Jonda'
+
+Submitted : '2016-02-02 by Darius Jonda'
+
+Input : 'KNHANES Nutrient Survey datasets from 1998 - 2015. Datafiles not included in this folder due to size of around 8 GB. Data can be downloaded from https://knhanes.cdc.go.kr'
