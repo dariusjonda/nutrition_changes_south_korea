@@ -1,0 +1,13 @@
+Name of QuantLet : 'DASampleWeights'
+
+Published in : 'Bachelor Thesis "Nutrition Changes in South Korea"'
+
+Description : 'Demographic analysis of the 1998 and 2016 KNHANES datasets using sample weights.'
+
+Keywords : 'South Korea, nutrition survey, KNHANES, nutrition, descriptive statistics, sample weights, stratified survey, survey'
+
+Author : 'Darius Jonda'
+
+Submitted : '2016-02-03 by Darius Jonda'
+
+Input : 'KNHANES Nutrient Survey datasets from 1998 - 2015. Datafiles not included in this folder due to size of around 8 GB. Data can be downloaded from https://knhanes.cdc.go.kr'
