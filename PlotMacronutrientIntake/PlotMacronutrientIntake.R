@@ -3,7 +3,6 @@ library(ggplot2)
 library(dplyr)
 library(scales)
 
-
 # Functions
 ## Inputs KNHANES Nutrient Survey Dataset and returns summarizes Protein, Fat,
 ## Carbohydrate consumption as well as the total calorie intake.
@@ -29,6 +28,54 @@ baseNutrientsSummary = function(df, groupby = NULL) {
 upper = function(df) {
   names(df) = toupper(names(df))
   df
+}
+
+## Inputs Dataset and returns same Dataset with lowercase variable names.
+lower <- function (df) {
+  names(df) <- tolower(names(df))
+  df
+}
+
+# Read in data
+## read in 24 h recall examination files
+files <- list.files(pattern = "_24RC")
+for (file in files) {
+  td <- as.data.frame(read.spss(paste0(file)), stringsAsFactors = F)
+  td_name <- substr(file, 0, 9)
+  
+  assign(td_name, td)
+}
+
+# Summarizes each years dataset by study participant for further analysis
+for (file in files) {
+  td_name <- substr(file, 0, 9)
+  df <- get(td_name)
+  
+  df <- lower(df)
+  
+  df2 <- df %>%
+    group_by(id) %>%
+    summarise(NF_EN = sum(nf_en, na.rm = T), 
+              NF_PROT = sum(nf_prot, na.rm = T),
+              NF_FAT = sum(nf_fat, na.rm = T),
+              NF_CHO = sum(nf_cho, na.rm = T), 
+              region = unique(region), 
+              town_t = unique(town_t), 
+              psu = unique(psu), 
+              sex = unique(sex), 
+              age = unique(age),
+              incm = unique(incm)) %>%
+    mutate(AGEGROUP = ifelse(age<18, "u18", 
+                             ifelse(age<25, "u25", 
+                                    ifelse(age<65, "u65", "65+"))))
+  
+  td_name2 <- substr(td_name, 3, 4)
+  if (td_name2 == "98") {
+    td_name2 <- paste0("HN_19", td_name2)
+  } else {
+    td_name2 <- paste0("HN_20", td_name2)
+  }
+  assign(td_name2, df2)
 }
 
 # Analysis
@@ -74,7 +121,7 @@ df_m2 %>%
   scale_x_date(breaks = c(as.Date(c("1998-01-05", "2001-01-05", "2005-01-05")), 
                           seq(as.Date("2007-01-05"), as.Date("2015-01-05"), 
                               by = "1 years")),
-               labels = date_format("%Y")) +
+               labels = date_format("%y")) +
   labs(title = "Daily Energy Intake by Macronutrients from 1998 until 2015",
        x = "Year",
        y = "Energy Intake in kcal") +

@@ -1,11 +1,22 @@
 # Libraries
 library(dplyr)
+library(tidyr)
 
 # Functions
 ## Inputs Dataframe and returns same Dataframe with UPPERCASE variable names
 upper = function(df) {
   names(df) = toupper(names(df))
   df
+}
+
+# Read in data
+## read in 24 h recall examination files
+files <- list.files(pattern = "_24RC")
+for (file in files) {
+  td <- as.data.frame(read.spss(paste0(file)), stringsAsFactors = F)
+  td_name <- substr(file, 0, 9)
+  
+  assign(td_name, td)
 }
 
 # Analysis

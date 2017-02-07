@@ -1,5 +1,6 @@
 # Libraries
 library(dplyr)
+library(foreign)
 
 # Functions
 ## Inputs Dataframe and returns same Dataframe with UPPERCASE variable names
@@ -8,6 +9,16 @@ upper = function(df) {
   df
 }
 
+# Read in data
+## read in health examination data
+files_all <- list.files(pattern = "_ALL")
+for (file in files_all) {
+  td <- as.data.frame(read.spss(paste0(file), reencode = "UTF-8"))
+  td_name <- substr(file, 0, 8)
+  
+  assign(td_name, td)
+  print(td_name)
+}
 
 # Analysis
 ## Computes BMI categorization for the Nutrition Survey KNHANES datasets from

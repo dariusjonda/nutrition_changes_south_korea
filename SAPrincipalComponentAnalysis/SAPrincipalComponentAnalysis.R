@@ -64,6 +64,16 @@ upper = function(df) {
   df
 }
 
+# Read in data
+## read in 24 h recall examination files
+files <- list.files(pattern = "_24RC")
+for (file in files) {
+  td <- as.data.frame(read.spss(paste0(file)), stringsAsFactors = F)
+  td_name <- substr(file, 0, 9)
+  
+  assign(td_name, td)
+}
+
 # Data Preparation
 ## Read in 1998 and 2015 datasets, filter by more than 5000 and less than 500
 ## kcal intake by day
@@ -127,18 +137,16 @@ dfana2015[is.na(dfana2015)] = 0
 
 # Analysis
 ## Principal Component Analysis for 1998 and 2015 KNHANES datasets
-
-
 ### 1998
 #### PCA
-pc = prcomp(dfana1998, center = T, scale. = T)
+pc98 = prcomp(dfana1998, center = T, scale. = T)
 
 #### Scree Plot
-screeplot(pc, type = "l")
+screeplot(pc98, type = "l")
 
 ### 2015
 #### PCA
-pc = prcomp(dfana2015, center = T, scale. = T)
+pc15 = prcomp(dfana2015, center = T, scale. = T)
 
 #### Scree Plot
-screeplot(pc, type = "l")
+screeplot(pc15, type = "l")

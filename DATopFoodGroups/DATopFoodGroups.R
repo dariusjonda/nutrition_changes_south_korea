@@ -2,7 +2,6 @@
 library(dplyr)
 library(tidyr)
 
-
 # Functions
 ## Inputs KNHANES nutrition survey dataset and seperates into existing
 ## food groups + seperates Alcohol, Kimchi, White Rice, Coffee, Bread into
@@ -72,6 +71,15 @@ upper = function(df) {
 ## trim function removes unnecessary blank spaces
 trim <- function(x) gsub("^\\s+|\\s+$", "", x)
 
+# Read in data
+## read in 24 h recall examination files
+files <- list.files(pattern = "_24RC")
+for (file in files) {
+  td <- as.data.frame(read.spss(paste0(file)), stringsAsFactors = F)
+  td_name <- substr(file, 0, 9)
+  
+  assign(td_name, td)
+}
 
 # Analysis
 ## Creates lookup table for foodgroups

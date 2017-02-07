@@ -65,6 +65,16 @@ upper = function(df) {
   df
 }
 
+# Read in data
+## read in 24 h recall examination files
+files <- list.files(pattern = "_24RC")
+for (file in files) {
+  td <- as.data.frame(read.spss(paste0(file)), stringsAsFactors = F)
+  td_name <- substr(file, 0, 9)
+  
+  assign(td_name, td)
+}
+
 # Data Preparation
 ## Read in 1998 and 2015 datasets, filter by more than 5000 and less than 500
 ## kcal intake by day
@@ -133,18 +143,18 @@ dfana2015[is.na(dfana2015)] = 0
 
 ### 1998
 #### Elbow / Silhouette
-mydata = scale(dfana1998)
-fviz_nbclust(mydata, kmeans, method = "wss") 
-fviz_nbclust(mydata, kmeans, method = "silhouette")
+mydata98 = scale(dfana1998)
+fviz_nbclust(mydata98, kmeans, method = "wss") 
+fviz_nbclust(mydata98, kmeans, method = "silhouette")
 
 #### k-means analysis
-kmcl = kmeans(dfana1998, 2, 100)
+kmcl98 = kmeans(dfana1998, 2, 100)
 
 ### 2015
 #### Elbow / Silhouette
-mydata = scale(dfana2015)
-fviz_nbclust(mydata, kmeans, method = "wss") 
-fviz_nbclust(mydata, kmeans, method = "silhouette")
+mydata15 = scale(dfana2015)
+fviz_nbclust(mydata15, kmeans, method = "wss") 
+fviz_nbclust(mydata15, kmeans, method = "silhouette")
 
 #### k-means analysis
-kmcl = kmeans(dfana2015, 2, 100)
+kmcl15 = kmeans(dfana2015, 2, 100)
