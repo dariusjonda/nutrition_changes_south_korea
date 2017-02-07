@@ -1,5 +1,7 @@
 # Libraries
+library(foreign)
 library(dplyr)
+library(tidyr)
 library(factoextra)
 
 # Functions

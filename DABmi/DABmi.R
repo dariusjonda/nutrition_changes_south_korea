@@ -1,5 +1,6 @@
 # Libraries
 library(dplyr)
+library(tidyr)
 library(foreign)
 
 # Functions

@@ -1,5 +1,7 @@
 # Libraries
+library(foreign)
 library(dplyr)
+library(tidyr)
 
 # Functions
 ## Inputs KNHANES nutrition survey dataset and seperates into existing
