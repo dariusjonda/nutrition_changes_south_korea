@@ -32,29 +32,29 @@ upper = function(df) {
 }
 
 ## Inputs Dataset and returns same Dataset with lowercase variable names.
-lower <- function (df) {
-  names(df) <- tolower(names(df))
+lower = function (df) {
+  names(df) = tolower(names(df))
   df
 }
 
 # Read in data
 ## read in 24 h recall examination files
-files <- list.files(pattern = "_24RC")
+files = list.files(pattern = "_24RC")
 for (file in files) {
-  td <- as.data.frame(read.spss(paste0(file)), stringsAsFactors = F)
-  td_name <- substr(file, 0, 9)
+  td = as.data.frame(read.spss(paste0(file)), stringsAsFactors = F)
+  td_name = substr(file, 0, 9)
   
   assign(td_name, td)
 }
 
 # Summarizes each years dataset by study participant for further analysis
 for (file in files) {
-  td_name <- substr(file, 0, 9)
-  df <- get(td_name)
+  td_name = substr(file, 0, 9)
+  df = get(td_name)
   
-  df <- lower(df)
+  df = lower(df)
   
-  df2 <- df %>%
+  df2 = df %>%
     group_by(id) %>%
     summarise(NF_EN = sum(nf_en, na.rm = T), 
               NF_PROT = sum(nf_prot, na.rm = T),
@@ -70,11 +70,11 @@ for (file in files) {
                              ifelse(age<25, "u25", 
                                     ifelse(age<65, "u65", "65+"))))
   
-  td_name2 <- substr(td_name, 3, 4)
+  td_name2 = substr(td_name, 3, 4)
   if (td_name2 == "98") {
-    td_name2 <- paste0("HN_19", td_name2)
+    td_name2 = paste0("HN_19", td_name2)
   } else {
-    td_name2 <- paste0("HN_20", td_name2)
+    td_name2 = paste0("HN_20", td_name2)
   }
   assign(td_name2, df2)
 }
